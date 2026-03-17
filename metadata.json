@@ -1,0 +1,5 @@
+{
+  "name": "Sarv Brahmin Sanghtan",
+  "description": "Mobile-first community management web application for Sarv Brahmin Sanghtan Kannod, Khategaon, Satwas - Indore Nivasrath.",
+  "requestFramePermissions": ["camera"]
+}

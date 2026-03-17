@@ -1,0 +1,201 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A member of the community",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "age": { "type": "number" },
+        "profession": { "type": "string" },
+        "native_place": { "type": "string" },
+        "current_city": { "type": "string" },
+        "family_details": { "type": "string" },
+        "photo": { "type": "string" },
+        "role": { "type": "string", "enum": ["member", "admin"] },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "phone", "role", "created_at"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "A community event",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "location": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "date", "location", "created_at"]
+    },
+    "EventRegistration": {
+      "title": "EventRegistration",
+      "description": "A user's registration for an event",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "event_id": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["user_id", "event_id", "created_at"]
+    },
+    "ParichayProfile": {
+      "title": "ParichayProfile",
+      "description": "A profile for the matrimonial introduction event",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "name": { "type": "string" },
+        "gender": { "type": "string", "enum": ["male", "female"] },
+        "age": { "type": "number" },
+        "height": { "type": "string" },
+        "education": { "type": "string" },
+        "profession": { "type": "string" },
+        "father_name": { "type": "string" },
+        "father_gotra": { "type": "string" },
+        "address": { "type": "string" },
+        "native_place": { "type": "string" },
+        "current_city": { "type": "string" },
+        "phone": { "type": "string" },
+        "photo": { "type": "string" },
+        "payment_status": { "type": "string", "enum": ["pending", "paid"] },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["user_id", "name", "gender", "age", "height", "education", "profession", "father_name", "father_gotra", "address", "native_place", "current_city", "phone", "payment_status", "created_at"]
+    },
+    "Donation": {
+      "title": "Donation",
+      "description": "A donation made by a user",
+      "type": "object",
+      "properties": {
+        "user_id": { "type": "string" },
+        "amount": { "type": "number" },
+        "payment_id": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "success", "failed"] },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["user_id", "amount", "status", "created_at"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "A Parichay Sammelan booklet",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "pdf_url": { "type": "string" },
+        "price_pdf": { "type": "number" },
+        "price_delivery": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "pdf_url", "price_pdf", "price_delivery", "created_at"]
+    },
+    "Helpline": {
+      "title": "Helpline",
+      "description": "A community helpline contact",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "area": { "type": "string" },
+        "role": { "type": "string" }
+      },
+      "required": ["name", "phone", "area"]
+    },
+    "GalleryImage": {
+      "title": "GalleryImage",
+      "description": "A photo from a previous function",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["url", "title", "created_at"]
+    },
+    "LeadershipMessage": {
+      "title": "LeadershipMessage",
+      "description": "A message from a group leader",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "designation": { "type": "string" },
+        "message": { "type": "string" },
+        "photo_url": { "type": "string" },
+        "order": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "designation", "message", "created_at"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Stores user profiles"
+    },
+    "events/{eventId}": {
+      "schema": { "$ref": "#/entities/Event" },
+      "description": "Stores community events"
+    },
+    "event_registrations/{registrationId}": {
+      "schema": { "$ref": "#/entities/EventRegistration" },
+      "description": "Stores event registrations"
+    },
+    "parichay_profiles/{profileId}": {
+      "schema": { "$ref": "#/entities/ParichayProfile" },
+      "description": "Stores Parichay Sammelan profiles"
+    },
+    "donations/{donationId}": {
+      "schema": { "$ref": "#/entities/Donation" },
+      "description": "Stores donation records"
+    },
+    "books/{bookId}": {
+      "schema": { "$ref": "#/entities/Book" },
+      "description": "Stores Parichay Sammelan booklets"
+    },
+    "helplines/{helplineId}": {
+      "schema": { "$ref": "#/entities/Helpline" },
+      "description": "Stores community helpline contacts"
+    },
+    "gallery/{imageId}": {
+      "schema": { "$ref": "#/entities/GalleryImage" },
+      "description": "Stores gallery photos"
+    },
+    "leadership_messages/{messageId}": {
+      "schema": { "$ref": "#/entities/LeadershipMessage" },
+      "description": "Stores leadership messages"
+    },
+    "admins/{adminId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string", "format": "email" },
+          "role": { "type": "string", "enum": ["admin"] },
+          "status": { "type": "string", "enum": ["active", "pending"] },
+          "reason": { "type": "string" },
+          "created_at": { "type": "string", "format": "date-time" }
+        },
+        "required": ["email", "role", "status", "created_at"]
+      },
+      "description": "Stores admin users and requests"
+    },
+    "whatsapp_verifications/{verificationId}": {
+      "schema": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "string" },
+          "status": { "type": "string", "enum": ["pending", "verified", "expired"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "phone": { "type": "string" }
+        },
+        "required": ["code", "status", "created_at"]
+      },
+      "description": "Stores WhatsApp login verification requests"
+    }
+  }
+}
